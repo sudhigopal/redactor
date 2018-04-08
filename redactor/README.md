@@ -58,6 +58,7 @@ Instructions to run the code and it gives the brief description of all the funct
 This is a text analytics class projects from Department of Computer Science at University of Oklahoma, Norman. 
 
 #### Functions
+##### Redactor
 ```sh
 name_loc_redactor(file_input):
     This function searchs for names and location in the given data file, redacts them and store it into the same file_input file.
@@ -91,12 +92,35 @@ concept_redactor(file_input, concept):
     This function uses wordnet to find out all the possible synonyms of a concept word and redacts the whole sentence. Concept here can be defined as very sensitive words such as "kid", "kindergarten", "arrest" etc.
 ```
 ```sh
+stats:
+    Contains the details of which flag is redacted, file name, lenght of the redacted content and redacted content. Each column is seperated by Thorn character ('þ' U+00FE) and stored in stats.csv 
+```
+```sh
 Input and Output procedure:
     Input is given through command line argument, which is when calling a py file. 
     I have used --input as a tag name which will be followed by input file path. Multiple --inputs can be mentioned for a given run
     Output is similarly to that of a input procedure. Tag used to present output directory is --output followed by path.
     Main Function reads the input argument using glob function and stores all the path in a list.
     The symbol used to redact text is "█" (U+2588)
+```
+##### Unredactor
+  - This is a reverse engineering process of redaction, where in we use Machine learning algorithms to predict the possible names for which redaction is carried out.
+
+Fucntions used in this process are:
+```sh
+    Main function processes the input data (redacted file) and create a list dictonary which is the test file for our given program. The list dictonary contains {"left of name", "name(redacted)","length of the name","right of the name"}. 
+```
+```sh
+get_entity(text):
+    This function takes a text data as an input and lists out all the possible names, word which is left of names and word which is in right of names.
+```
+```sh
+get_features(glob_text,tested_names):
+    This function creates name feature for training the model. This feature is stored in a list dictonary similar to our main function's test dictonary. The list dictonary contains {"left of name", "name","length of the name","right of the name"}.
+```
+```sh
+get_prediction(tested_names):
+    This function takes in the test name list as an input. I have used KNeighborsClassifier for which predicts the 5 possible names which could perfectly fit into the redacted content.
 ```
 ### Sample Input and Output
 ```
@@ -116,6 +140,11 @@ My phone number is
 ████████████
 ██████████
 ```
+### Testing
+ - To execute the pytests, go to the parent "redactor" directory where "setup.py" resides. Execute the below command to run all the tests
+```sh
+"python3 setup.py test"
+```
 
 ### Assumptions
  - Address is not a regular format, it changes with the region where the place reside. It is very hard to compile all formats of address. This function will just help you to detect USPS (United States Postal Services) format address representation. It is appreciated, if one can add any address format in future.
@@ -123,8 +152,8 @@ My phone number is
  - I have used a list for gender referrences, there exists a slight chance where I might have missed some of the references due to my limited knowledge with the language.
 
 ### Todos
- - Stats function
- - Unredactor
+ - Can try to implement other classifier and check if the predicited names are the actually true.
+ - usage of many test files at once
  
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
