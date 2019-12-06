@@ -1,6 +1,6 @@
 # The Redactor
 
-Certian documents contain sensitive information, which cannot be shared in public. So, those data must hidden or redacted like, name, place, address, phone numbers. These kind of redaction are often done with court manuscript, police report or a hospital record. So all these information hinding comes with a cost and redaction process is often costly and time consuming
+Certian documents contain sensitive information, which cannot be shared in public. So, those data must hidden or redacted like, name, place, address, phone numbers. These kind of redaction are often done with court manuscript, police report or a hospital record. So all these information hiding comes with a cost and redaction process is often costly and time consuming
 
 # List of redacted features
 
